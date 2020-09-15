@@ -4,7 +4,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
-  LOGOUT,
+  LOGOUT_SUCCESS,
+  LOGOUT_REQUEST,
+  LOGOUT_FAILURE,
   SIGNUP_FAILURE,
   SIGNUP_SUCCESS,
   SIGNUP_REQUEST,
@@ -87,10 +89,20 @@ export const isUserLoggedIn = () => {
 
 export const logout = () => {
   return async function (dispatch) {
-    // removes the token from localStorage
-    localStorage.clear();
-    dispatch({
-      type: LOGOUT,
-    });
+    dispatch({ type: LOGOUT_REQUEST });
+
+    const response = await axios.post('/admin/logout');
+
+    if (response.status === 200) {
+      localStorage.clear();
+      dispatch({
+        type: LOGOUT_SUCCESS,
+      });
+    } else {
+      dispatch({
+        type: LOGOUT_FAILURE,
+        payload: { error: response.data.error },
+      });
+    }
   };
 };

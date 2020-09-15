@@ -28,6 +28,9 @@ exports.signup = catchAsync(async (req, res, next) => {
     },
   );
 
+  // created cookie in our server
+  res.cookie('token', token, { expiresIn: '28d' });
+
   res.status(201).json({
     status: 'success',
     token,
@@ -70,6 +73,8 @@ exports.login = catchAsync(async (req, res, next) => {
       },
     );
 
+    res.cookie('token', token, { expiresIn: '28d' });
+
     res.status(200).json({
       status: 'success',
       token,
@@ -78,4 +83,12 @@ exports.login = catchAsync(async (req, res, next) => {
   } else {
     return next(new AppError('Must be an admin to access', 401));
   }
+});
+
+exports.logout = catchAsync(async (req, res, next) => {
+  res.clearCookie('token');
+  res.status(200).json({
+    status: 'success',
+    message: 'Successfully logout...',
+  });
 });

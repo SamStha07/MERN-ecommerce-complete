@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();

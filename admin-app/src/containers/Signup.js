@@ -21,16 +21,18 @@ function Signup(props) {
   const { authenticate, loading } = props.auth;
   if (loading) {
     return (
-      <Button variant="primary" disabled>
-        <Spinner
-          as="span"
-          animation="grow"
-          size="sm"
-          role="status"
-          aria-hidden="true"
-        />
-        Loading...
-      </Button>
+      <div style={{ position: 'fixed', left: '48%', top: '50%' }}>
+        <Button variant="primary" disabled>
+          <Spinner
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+          Loading...
+        </Button>
+      </div>
     );
   }
   if (authenticate) {
